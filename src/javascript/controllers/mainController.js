@@ -4,6 +4,9 @@
     .controller('mainController', mainController);
 
   function mainController(mainService, $window) {
+
+    // Global Variables
+
     var vm = this;
     vm.data = mainService.main_data;
     vm.percentageReg = [];
@@ -14,6 +17,8 @@
     vm.lineNat = [];
     vm.time = [];
 
+    // Function for setting the Jobs percentage and text color compared to National average
+
     vm.getAverage = function() {
       vm.average = vm.data.summary.jobs.regional / vm.data.summary.jobs.national_avg;
       if (vm.average > 0) {
@@ -23,6 +28,8 @@
       }
     };
     vm.getAverage();
+
+    // Function for setting the Color and symbol for % Change over window of requested Data
 
     vm.getChange = function() {
       vm.change = vm.data.summary.jobs_growth.regional;
@@ -35,6 +42,8 @@
       }
     };
     vm.getChange();
+
+    // Function for finding the percentage of change from year to year based on data given then setting that data in proper array
 
     vm.getPercentage = function() {
       var pChangeReg = vm.data.trend_comparison.regional;
@@ -53,12 +62,15 @@
       vm.percentageState.reverse();
       vm.percentageNat.reverse();
     };
-
     vm.getPercentage();
+
+    // Loop to set an array with years that the request is built on, for use in later functions
 
     for (var z = vm.data.trend_comparison.start_year; z < vm.data.trend_comparison.end_year; z++) {
       vm.time.push(z);
     }
+
+    // Constructor to create proper 'x' and 'y' values in an array to plot the D3 line chart
 
     vm.construct = function() {
       for (var q = 0; q < vm.percentageReg.length; q++) {
@@ -80,15 +92,15 @@
         });
       }
     };
-
     vm.construct();
+
+    // Setup and data injection for the D3 line chart
 
     var data = [
       vm.lineReg,
       vm.lineState,
       vm.lineNat
     ];
-
 
     var colors = [
       '#142850',

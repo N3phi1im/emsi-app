@@ -4,11 +4,15 @@
   .factory('mainService', mainService);
 
   function mainService($http, $q) {
+
+    // Setting the up the factory to handle the request/response
+
     var o = {};
     o.getData = getData;
     o.main_data = {};
-    console.log('loading service');
     return o;
+
+    // Request handling function and sets the response on the factory to be used on the main controller
 
     function getData(data) {
       var q = $q.defer();
