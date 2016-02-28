@@ -1,0 +1,106 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+.main {
+  padding: 0.5em 1.5em 1.5em;
+}
+.input_box {
+  padding: 5em;
+  height: 100%;
+}
+.input_box_content {
+  width: 30em;
+}
+.large_info {
+  height: 8em;
+  width: 33%;
+  text-align: center;
+}
+.small_text_bold {
+  font-size: 12px;
+  font-weight: bold;
+}
+.text_bold {
+  font-weight: bold;
+}
+.margin_left {
+  margin-top: 10px;
+  margin-left: 65px;
+  margin-bottom: 10px;
+}
+.numbers {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+.positive {
+  color: #009D00;
+}
+.negative {
+  color: #D0000F;
+}
+.no_margin {
+  margin: 0;
+}
+.info_block {
+  width: 150px;
+}
+.industry_info_block {
+  width: 125px;
+  margin-left: 30px;
+}
+.text_right {
+  text-align: right;
+  padding-right: 20px;
+}
+.left_indent {
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.blue {
+  color: #1F77BE;
+}
+#title {
+  margin-bottom: 0;
+  padding-bottom: 2px;
+}
+#circle {
+  color: #142850;
+}
+#square {
+  color: #1185C4;
+}
+#triangle {
+  color: #ABDAFC;
+}
+body {
+  color: #616161;
+  overflow-x: hidden;
+}
+// D3 Chart
+.grid .tick {
+  stroke: lightgrey;
+  opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+.grid path {
+  stroke-width: 0;
+}
+.axis path {
+  fill: none;
+  shape-rendering: crispEdges;
+}
+.axis text {
+  fill: #555;
+}
+.axis line {
+  stroke: #e7e7e7;
+  shape-rendering: crispEdges;
+}
+.axis .axis-label {
+  font-size: 14px;
+}
+.line {
+  fill: none;
+  stroke-width: 1.5px;
+}
