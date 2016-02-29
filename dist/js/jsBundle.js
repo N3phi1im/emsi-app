@@ -26,8 +26,15 @@
         .controller('mainController', mainController);
 
     function mainController(mainService, $window) {
+
+        // Global Variables
+
         var vm = this;
-        vm.data = mainService.main_data;
+        if (getSetData()) {
+            vm.data = parseData();
+        } else {
+            vm.data = mainService.main_data;
+        }
         vm.percentageReg = [];
         vm.percentageState = [];
         vm.percentageNat = [];
@@ -35,6 +42,18 @@
         vm.lineState = [];
         vm.lineNat = [];
         vm.time = [];
+
+        // Pull data from storage for persistence
+
+        function getSetData() {
+            return localStorage.data;
+        }
+
+        function parseData() {
+            return JSON.parse(getSetData());
+        }
+
+        // Function for setting the Jobs percentage and text color compared to National average
 
         vm.getAverage = function() {
             vm.average = vm.data.summary.jobs.regional / vm.data.summary.jobs.national_avg;
@@ -45,6 +64,8 @@
             }
         };
         vm.getAverage();
+
+        // Function for setting the Color and symbol for % Change over window of requested Data
 
         vm.getChange = function() {
             vm.change = vm.data.summary.jobs_growth.regional;
@@ -57,6 +78,8 @@
             }
         };
         vm.getChange();
+
+        // Function for finding the percentage of change from year to year based on data given then setting that data in proper array
 
         vm.getPercentage = function() {
             var pChangeReg = vm.data.trend_comparison.regional;
@@ -75,12 +98,15 @@
             vm.percentageState.reverse();
             vm.percentageNat.reverse();
         };
-
         vm.getPercentage();
+
+        // Loop to set an array with years that the request is built on, for use in later functions
 
         for (var z = vm.data.trend_comparison.start_year; z < vm.data.trend_comparison.end_year; z++) {
             vm.time.push(z);
         }
+
+        // Constructor to create proper 'x' and 'y' values in an array to plot the D3 line chart
 
         vm.construct = function() {
             for (var q = 0; q < vm.percentageReg.length; q++) {
@@ -102,15 +128,15 @@
                 });
             }
         };
-
         vm.construct();
+
+        // Setup and data injection for the D3 line chart
 
         var data = [
             vm.lineReg,
             vm.lineState,
             vm.lineNat
         ];
-
 
         var colors = [
             '#142850',
@@ -237,8 +263,14 @@
         .controller('welcomeController', welcomeController);
 
     function welcomeController(mainService, $state) {
+
+        // Global Variables
+
         var vm = this;
         vm.data = mainService.data;
+
+        // Main request from welcome page to setup displaying the JSON response
+
         vm.getData = function() {
             mainService.getData(vm.requested_data).then(function(res) {
                 $state.go("Main");
@@ -253,19 +285,29 @@
         .factory('mainService', mainService);
 
     function mainService($http, $q) {
+
+        // Setting the up the factory to handle the request/response
+
         var o = {};
         o.getData = getData;
+        o.setData = setData;
         o.main_data = {};
-        console.log('loading service');
         return o;
+
+        // Request handling function and sets the response on the factory to be used on the main controller
 
         function getData(data) {
             var q = $q.defer();
             $http.post('/data', data).success(function(res) {
                 o.main_data = res;
+                o.setData(res);
                 q.resolve(res);
             });
             return q.promise;
+        }
+
+        function setData(set) {
+            localStorage.setItem('data', JSON.stringify(set));
         }
     }
 })();

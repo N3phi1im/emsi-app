@@ -8,7 +8,11 @@
     // Global Variables
 
     var vm = this;
-    vm.data = mainService.main_data;
+    if (getSetData()) {
+      vm.data = parseData();
+    } else {
+      vm.data = mainService.main_data;
+    }
     vm.percentageReg = [];
     vm.percentageState = [];
     vm.percentageNat = [];
@@ -16,6 +20,16 @@
     vm.lineState = [];
     vm.lineNat = [];
     vm.time = [];
+
+    // Pull data from storage for persistence
+
+    function getSetData() {
+      return localStorage.data;
+    }
+
+    function parseData() {
+      return JSON.parse(getSetData());
+    }
 
     // Function for setting the Jobs percentage and text color compared to National average
 

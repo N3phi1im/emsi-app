@@ -9,6 +9,7 @@
 
     var o = {};
     o.getData = getData;
+    o.setData = setData;
     o.main_data = {};
     return o;
 
@@ -18,9 +19,14 @@
       var q = $q.defer();
       $http.post('/data', data).success(function(res) {
         o.main_data = res;
+        o.setData(res);
         q.resolve(res);
       });
       return q.promise;
+    }
+
+    function setData(set) {
+      localStorage.setItem('data', JSON.stringify(set));
     }
   }
 })();
