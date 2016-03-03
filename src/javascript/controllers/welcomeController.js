@@ -9,6 +9,7 @@
 
     var vm = this;
     vm.data = mainService.data;
+    vm.requested_data = {};
 
     // Main request from welcome page to setup displaying the JSON response
 

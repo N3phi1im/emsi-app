@@ -1,6 +1,6 @@
 <md-card class="input_box" layout layout-align="space-around">
   <div class="input_box_content">
-    <form ng-submit="vm.getData()" layout="column">
+    <form ng-submit="vm.getData()" layout="column" name="req_form">
       <md-input-container>
         <label>Job Title</label>
         <md-select ng-model="vm.requested_data.occupation" required>
@@ -25,7 +25,7 @@
           </md-option>
         </md-select>
       </md-input-container>
-      <md-button class="md-raised" type="submit">Show me!</md-button>
+      <md-button class="md-raised" type="submit" ng-disabled="req_form.$invalid">Show me!</md-button>
     </form>
   </div>
 </md-card>

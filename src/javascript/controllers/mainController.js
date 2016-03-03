@@ -80,7 +80,7 @@
 
     // Loop to set an array with years that the request is built on, for use in later functions
 
-    for (var z = vm.data.trend_comparison.start_year; z < vm.data.trend_comparison.end_year; z++) {
+    for (var z = vm.data.trend_comparison.start_year += 1; z <= vm.data.trend_comparison.end_year; z++) {
       vm.time.push(z);
     }
 
